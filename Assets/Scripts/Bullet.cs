@@ -42,6 +42,8 @@ public class Bullet : MonoBehaviour
             if (other.gameObject.GetComponent<Spaceship>() != null)
             {
                 other.gameObject.GetComponent<Spaceship>().TakeDamage(m_bulletDamage);
+                m_isActive = false;
+                m_shooter.ReturnBullet(this);
             }
         }
     }
