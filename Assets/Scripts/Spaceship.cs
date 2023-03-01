@@ -1,6 +1,12 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
+public enum SpaceshipType
+{
+    Player,
+    Enemy
+}
+
 public class Spaceship : MonoBehaviour
 {
     [SerializeField] private int m_maxHealth = 100;
@@ -10,6 +16,7 @@ public class Spaceship : MonoBehaviour
     [SerializeField] private AudioSource m_explodeSound;
     [SerializeField] private ParticleSystem m_explodeParticles;
     [SerializeField] private GameObject m_meshGameObject;
+    [SerializeField] private SpaceshipType m_spaceshipType;
 
     private int m_currentHealth = 100;
     private bool m_isAlive = true;
@@ -78,14 +85,22 @@ public class Spaceship : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        TakeDamage(m_collisionDamage);
+        if (collision.gameObject.GetComponent<Spaceship>().GetSpaceshipType() != GetSpaceshipType())
+        {
+            TakeDamage(m_collisionDamage);
+        }
     }
 
     protected virtual Vector3 Move()
     {
         return Vector3.zero;
     }
-    
+
+    public SpaceshipType GetSpaceshipType()
+    {
+        return m_spaceshipType;
+    }
+
     public void TakeDamage(int _damage)
     {
         m_currentHealth -= _damage;
@@ -114,5 +129,10 @@ public class Spaceship : MonoBehaviour
     public float GetMovementSpeed()
     {
         return m_moveSpeed;
+    }
+
+    public void SetMovementSpeed(float _speed)
+    {
+        m_moveSpeed = _speed;
     }
 }
