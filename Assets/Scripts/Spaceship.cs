@@ -111,7 +111,7 @@ public class Spaceship : MonoBehaviour
         }
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         if (!m_isAlive)
         {

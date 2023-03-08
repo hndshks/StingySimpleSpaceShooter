@@ -70,6 +70,13 @@ public class Player : Spaceship, IShooterable
         return this.name;
     }
 
+    protected override void Die()
+    {
+        base.Die();
+
+        GameManager.Instance.OnPlayerDied();
+    }
+
     protected override Vector3 Move()
     {
         var movementVector = Vector3.zero;

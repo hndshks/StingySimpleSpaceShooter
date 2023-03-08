@@ -106,6 +106,13 @@ public class BigBoss : Spaceship, IShooterable
         return name;
     }
 
+    protected override void Die()
+    {
+        base.Die();
+
+        GameManager.Instance.OnBossDied();
+    }
+
     private void GetPlayer()
     {
         m_player = GameObject.FindGameObjectWithTag("Player");
